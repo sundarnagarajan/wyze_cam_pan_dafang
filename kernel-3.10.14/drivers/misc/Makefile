@@ -66,4 +66,3 @@ obj-$(CONFIG_JZ_AES)		+= jz_aes/
 obj-$(CONFIG_JZ_DES)		+= jz_des/
 obj-$(CONFIG_RMEM)		+= rmem.o
 obj-$(CONFIG_PWM_SDK)		+= pwm_sdk.o
-obj-y				+= motor/sample_motor/

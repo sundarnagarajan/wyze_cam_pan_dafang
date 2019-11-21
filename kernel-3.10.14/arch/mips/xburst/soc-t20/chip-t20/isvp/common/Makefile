@@ -2,7 +2,6 @@
 obj-y		+= board_base.o
 obj-y		+= misc.o
 obj-y		+= mmc.o
-obj-y		+= led_gpio.o
 obj-$(CONFIG_KEYBOARD_GPIO)	+= keyboard_gpio.o
 
 obj-$(CONFIG_BCM_PM_CORE)   += bcm_power_control.o
