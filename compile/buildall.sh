@@ -18,7 +18,7 @@ $MAKE_THREADED clean
 if [ -f .config.keep ]; then
     mv .config.keep .config
 else
-    \cp -f ${WYZECAM_KCONFIG_DIR}.config ${KERNEL_DIR}/
+    \cp -f ${WYZECAM_KCONFIG_DIR}/.config ${KERNEL_DIR}/
 fi
 ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 
