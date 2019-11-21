@@ -69,17 +69,6 @@ function restore_config() {
     fi
 }
 
-function clean_extract_kernel() {
-    cd $DAFANG_DIR
-    local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
-    if [ -d "$KTOP_DIR" ]; then
-        backup_config "$KTOP_DIR"
-        rm -rf $KTOP_DIR
-    fi
-    tar xf "$KERNEL_SRC_TAR_FILENAME"
-    restore_config "$KTOP_DIR"
-}
-
 function patch_kernel() {
     ls -1 ${KERNEL_DIR}/.patch_completed 1>/dev/null 2>&1
     if [ $? -eq 0 ]; then
@@ -104,6 +93,18 @@ function reverse_kernel_patches() {
     do
         patch --reverse -r - -p1 < $f 2>/dev/null || exit 1
     done
+}
+
+function clean_extract_kernel() {
+    cd $DAFANG_DIR
+    local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
+    if [ -d "$KTOP_DIR" ]; then
+        backup_config "$KTOP_DIR"
+        rm -rf $KTOP_DIR
+    fi
+    tar xf "$KERNEL_SRC_TAR_FILENAME"
+    restore_config "$KTOP_DIR"
+    patch_kernel
 }
 
 function clean_kernel() {
