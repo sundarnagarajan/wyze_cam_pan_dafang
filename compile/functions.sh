@@ -78,10 +78,10 @@ function restore_config() {
 }
 
 function patch_kernel() {
-    echo "Patching kernel"
+    >&2 echo "Patching kernel"
     ls -1 ${KERNEL_DIR}/.patch_completed 1>/dev/null 2>&1
     if [ $? -eq 0 ]; then
-        echo '---------- Already patched ----------'
+        >&2 echo '---------- Already patched ----------'
         return 0
     fi
     cd ${KERNEL_DIR}
@@ -92,9 +92,10 @@ function patch_kernel() {
 }
 
 function reverse_kernel_patches() {
+    >&2 echo "Reversing kernel patches"
     ls -1 ${KERNEL_DIR}/.patch_completed 1>/dev/null 2>&1
     if [ $? -ne 0 ]; then
-        echo '---------- Not patched ----------'
+        >&2 echo '---------- Not patched ----------'
         return 0
     fi
     cd ${KERNEL_DIR}
