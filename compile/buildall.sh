@@ -13,7 +13,6 @@ echo "Cleaning kernel"
 clean_kernel
 echo "Cleaning drivers"
 clean_drivers
-echo "Patching kernel"
 patch_kernel
 build_kernel
 build_drivers

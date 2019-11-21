@@ -70,6 +70,7 @@ function restore_config() {
 }
 
 function patch_kernel() {
+    echo "Patching kernel"
     ls -1 ${KERNEL_DIR}/.patch_completed 1>/dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo '---------- Already patched ----------'
