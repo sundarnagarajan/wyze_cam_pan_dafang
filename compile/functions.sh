@@ -75,9 +75,9 @@ function clean_extract_kernel() {
     if [ -d "$KTOP_DIR" ]; then
         backup_config "$KTOP_DIR"
         rm -rf $KTOP_DIR
-        tar xf "$KERNEL_SRC_TAR_FILENAME"
-        restore_config "$KTOP_DIR"
     fi
+    tar xf "$KERNEL_SRC_TAR_FILENAME"
+    restore_config "$KTOP_DIR"
 }
 
 function patch_kernel() {
