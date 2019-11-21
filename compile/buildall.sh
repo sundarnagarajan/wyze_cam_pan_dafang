@@ -64,8 +64,7 @@ rm -rf ${DEPMOD_DIR}
 
 # Copy kernel
 mkdir -p ${BUILT_KERNEL_DIR}
-find ${KERNEL_DIR} -name 'uImage.lzma' -exec cp {} ${BUILT_KERNEL_DIR}/ \;
-cp ${BUILT_KERNEL_DIR}/uImage.lzma ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
+cp $KERNEL_DIR}/arch/mips/boot/uImage.lzma ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
 mkimage -l ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
 
 echo "Time taken in seconds: $SECONDS"
