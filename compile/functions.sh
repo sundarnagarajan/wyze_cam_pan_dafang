@@ -117,7 +117,7 @@ function clean_kernel() {
 function build_kernel() {
     ln -sf ${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME) ${KERNEL_DIR}
     cd ${KERNEL_DIR}
-    ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
+    ( $MAKE_THREADED silentoldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 }
 
 function clean_drivers() {
