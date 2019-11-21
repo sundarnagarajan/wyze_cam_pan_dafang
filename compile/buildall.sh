@@ -16,7 +16,7 @@ clean_drivers
 patch_kernel | show_dots_per_file
 echo "Building kernel"
 build_kernel | show_dots_per_file
-build_drivers
+build_drivers | show_dots_per_file
 run_depmod
 copy_built_files
 echo ""
