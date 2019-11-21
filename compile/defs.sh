@@ -29,7 +29,7 @@ MAKE_THREADED="make -j$(nproc)"
 
 # Print diagnostic output only once - even if sourced multiple times
 if [ -z "$__DEFS_PRINTED__" ]; then
-    __DEFS_PRINTED__=yes
+    export __DEFS_PRINTED__=yes
     
     for v in DAFANG_DIR DAFANG_NEW_DIR DAFANG_TOOLCHAIN_DIR KERNEL_DIR DRIVERS_DIR BUILT_MODULES_DIR DEPMOD_DIR DEPMOD_MODULES_DIR BUILT_KERNEL_DIR NEW_KERNEL_FILENAME WYZECAM_KCONFIG_DIR OPENFANG_KCONFIG_DIR
     do
