@@ -49,19 +49,34 @@ function tar_top_dir() {
     tar tvf "$1" | head -1 | awk '{print $NF}' | sed -e 's/\/$//'
 }
 
+function backup_config() {
+    # $1: SOURCE dir to backup .config FROM
+    local KTOP_DIR=$1
+    \rm -f "${BAK_DIR}/.config.keep"
+    if [ -f "${KTOP_DIR}/.config" ]; then
+        cp "${KTOP_DIR}/.config" "${BAK_DIR}/.config.keep"
+    fi
+}
+
+function restore_config() {
+    # $1: TARGET dir to backup .config TO
+    local KTOP_DIR=$1
+    if [ -f "${BAK_DIR}/.config.keep" ]; then
+        \cp -f "${BAK_DIR}/.config.keep" "${KTOP_DIR}/.config"
+        \rm -f "${BAK_DIR}/.config.keep"
+    else
+        \cp -f ${WYZECAM_KCONFIG_DIR}/.config ${KTOP_DIR}/
+    fi
+}
+
 function clean_extract_kernel() {
     cd $DAFANG_DIR
     local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
     if [ -d "$KTOP_DIR" ]; then
-        \rm -f "${BAK_DIR}/.config.keep"
-        if [ -f "${KTOP_DIR}/.config" ]; then
-            cp "${KTOP_DIR}/.config" "${BAK_DIR}/.config.keep"
-        fi
+        backup_config "$KTOP_DIR"
         rm -rf $KTOP_DIR
         tar xf "$KERNEL_SRC_TAR_FILENAME"
-        if [ -f "${BAK_DIR}/.config.keep" ]; then
-            \cp -f "${BAK_DIR}/.config.keep" "${KTOP_DIR}/.config"
-        fi
+        restore_config "$KTOP_DIR"
     fi
 }
 
@@ -93,16 +108,10 @@ function reverse_kernel_patches() {
 
 function clean_kernel() {
     cd ${KERNEL_DIR}
-    if [ -f .config ]; then 
-        mv .config .config.keep
-    fi
+    backup_config "$KERNEL_DIR"
     $MAKE_THREADED distclean
     $MAKE_THREADED mrproper
-    if [ -f .config.keep ]; then
-        mv .config.keep .config
-    else
-        \cp -f ${WYZECAM_KCONFIG_DIR}/.config ${KERNEL_DIR}/
-    fi
+    restore_config "$KERNEL_DIR"
 }
 
 function build_kernel() {
