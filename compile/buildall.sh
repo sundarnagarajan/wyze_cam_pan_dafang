@@ -10,10 +10,11 @@ source ${PROG_DIR}/functions.sh || exit 1
 
 SECONDS=0
 echo "Cleaning kernel"
-clean_kernel
+clean_kernel | show_dots_per_file
 echo "Cleaning drivers"
 clean_drivers
-patch_kernel
+patch_kernel | show_dots_per_file
+echo "Building kernel"
 build_kernel | show_dots_per_file
 build_drivers
 run_depmod
