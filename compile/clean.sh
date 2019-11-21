@@ -9,8 +9,7 @@ PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
 source ${PROG_DIR}/functions.sh || exit 1
 
 SECONDS=0
-reverse_kernel_patches
-clean_kernel
+clean_extract_kernel
 clean_drivers
 echo ""
 echo "Time taken in seconds: $SECONDS"

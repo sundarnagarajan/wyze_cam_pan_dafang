@@ -8,9 +8,12 @@ PROG_DIR=${PROG_DIR:-$(dirname ${PROG_PATH})}
 PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
 
 DAFANG_DIR=$(readlink -e ${PROG_DIR}/..)
+BAK_DIR=${DAFANG_DIR}/bak
 DAFANG_TOOLCHAIN_DIR=${DAFANG_DIR}/toolchain
-WYZECAM_KCONFIG_DIR=${DAFANG_DIR}/wyze_cam_pan_kernel_config
-OPENFANG_KCONFIG_DIR=${DAFANG_DIR}/openfang_kernel_config
+WYZECAM_KCONFIG_DIR=${DAFANG_DIR}/kernel_config/camera/wyze_cam_pan/
+OPENFANG_KCONFIG_DIR=${DAFANG_DIR}/kernel_config/upstream/openfang/
+KERNEL_SRC_DIR=${DAFANG_DIR}/kernel_src_tar
+KERNEL_SRC_TAR_FILENAME=${KERNEL_SRC_DIR}/kernel-3.10.14.tar.xz
 KERNEL_DIR=${DAFANG_DIR}/kernel
 DRIVERS_DIR=${DAFANG_DIR}/drivers
 DAFANG_NEW_DIR=${DAFANG_DIR}/new
@@ -27,17 +30,40 @@ export CC=${CROSS_COMPILE}gcc
 export KSRC=$KERNEL_DIR
 MAKE_THREADED="make -j$(nproc)"
 
+mkdir -p ${BAK_DIR}
 
 # Print diagnostic output only once - even if sourced multiple times
 if [ -z "$__DEFS_PRINTED__" ]; then
     export __DEFS_PRINTED__=yes
     
-    for v in DAFANG_DIR DAFANG_NEW_DIR DAFANG_TOOLCHAIN_DIR KERNEL_DIR DRIVERS_DIR BUILT_MODULES_DIR DEPMOD_DIR DEPMOD_MODULES_DIR BUILT_KERNEL_DIR NEW_KERNEL_FILENAME WYZECAM_KCONFIG_DIR OPENFANG_KCONFIG_DIR
+    for v in DAFANG_DIR DAFANG_NEW_DIR DAFANG_TOOLCHAIN_DIR KERNEL_DIR DRIVERS_DIR BUILT_MODULES_DIR DEPMOD_DIR DEPMOD_MODULES_DIR BUILT_KERNEL_DIR NEW_KERNEL_FILENAME WYZECAM_KCONFIG_DIR OPENFANG_KCONFIG_DIR KERNEL_SRC_DIR KERNEL_SRC_TAR_FILENAME BAK_DIR
     do
         printf '%-32s : %s\n' "$v" "${!v}"
     done
     ls -l $CC
 fi
+
+function tar_top_dir() {
+    # $1: tar file path
+    # Outputs top dir (assumes only one top dir)
+    tar tvf "$1" | head -1 | awk '{print $NF}' | sed -e 's/\/$//'
+}
+
+function clean_extract_kernel() {
+    cd $DAFANG_DIR
+    local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
+    if [ -d "$KTOP_DIR" ]; then
+        \rm -f "${BAK_DIR}/.config.keep"
+        if [ -f "${KTOP_DIR}/.config" ]; then
+            cp "${KTOP_DIR}/.config" "${BAK_DIR}/.config.keep"
+        fi
+        rm -rf $KTOP_DIR
+        tar xf "$KERNEL_SRC_TAR_FILENAME"
+        if [ -f "${BAK_DIR}/.config.keep" ]; then
+            \cp -f "${BAK_DIR}/.config.keep" "${KTOP_DIR}/.config"
+        fi
+    fi
+}
 
 function patch_kernel() {
     ls -1 ${KERNEL_DIR}/.patch_completed 1>/dev/null 2>&1
@@ -80,6 +106,7 @@ function clean_kernel() {
 }
 
 function build_kernel() {
+    ln -sf ${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME) ${KERNEL_DIR}
     cd ${KERNEL_DIR}
     ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 }
