@@ -10,11 +10,16 @@ source ${PROG_DIR}/defs.sh || exit 1
 
 SECONDS=0
 
-if [ ! -f ${KERNEL_DIR}/.config ]; then
+cd ${KERNEL_DIR}
+if [ -f .config ]; then 
+    mv .config .config.keep
+fi
+$MAKE_THREADED clean
+if [ -f .config.keep ]; then
+    mv .config.keep .config
+else
     \cp -f ${WYZECAM_KCONFIG_DIR}.config ${KERNEL_DIR}/
 fi
-cd ${KERNEL_DIR}
-$MAKE_THREADED clean
 ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 
 cd ${DRIVERS_DIR}
@@ -60,4 +65,4 @@ find ${KERNEL_DIR} -name 'uImage.lzma' -exec cp {} ${BUILT_KERNEL_DIR}/ \;
 cp ${BUILT_KERNEL_DIR}/uImage.lzma ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
 mkimage -l ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
 
-echo "SECONDS = $SECONDS"
+echo "Time taken in seconds: $SECONDS"
