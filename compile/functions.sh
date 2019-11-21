@@ -43,6 +43,14 @@ if [ -z "$__DEFS_PRINTED__" ]; then
     ls -l $CC
 fi
 
+function show_dots_per_file() {
+    while read a;
+    do
+        echo -n "."
+    done
+    echo "done"
+}
+
 function tar_top_dir() {
     # $1: tar file path
     # Outputs top dir (assumes only one top dir)
