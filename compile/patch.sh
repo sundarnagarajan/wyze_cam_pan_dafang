@@ -9,6 +9,7 @@ PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
 source ${PROG_DIR}/defs.sh || exit 1
 
 if [ -f $KERNEL_DIR}/.patch_completed ]; then
+    echo '---------- Already patched ----------'
     exit 0
 fi
 cd ${KERNEL_DIR}
