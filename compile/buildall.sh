@@ -10,6 +10,9 @@ source ${PROG_DIR}/defs.sh || exit 1
 
 SECONDS=0
 
+if [ -f ${PROG_DIR}/patch.sh -a -x ${PROG_DIR}/patch.sh ]; then
+    ${PROG_DIR}/patch.sh || exit 1
+fi
 cd ${KERNEL_DIR}
 if [ -f .config ]; then 
     mv .config .config.keep
