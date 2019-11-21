@@ -71,6 +71,7 @@ function clean_kernel() {
         mv .config .config.keep
     fi
     $MAKE_THREADED distclean
+    $MAKE_THREADED mrproper
     if [ -f .config.keep ]; then
         mv .config.keep .config
     else
