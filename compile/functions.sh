@@ -74,7 +74,7 @@ function patch_kernel() {
     cd ${KERNEL_DIR}
     for f in $(ls -1 ${KERNEL_DIR}/../patches/*.patch 2>/dev/null)
     do
-        patch --forward -r - -p1 < $f || exit 1
+        patch --forward -r - -p1 < $f 1>/dev/null || exit 1
     done
 }
 
@@ -87,7 +87,7 @@ function reverse_kernel_patches() {
     cd ${KERNEL_DIR}
     for f in $(ls -1 ${KERNEL_DIR}/../patches/*.patch 2>/dev/null)
     do
-        patch --reverse -r - -p1 < $f || exit 1
+        patch --reverse -r - -p1 < $f 1>/dev/null || exit 1
     done
 }
 
@@ -117,7 +117,6 @@ function clean_drivers() {
     for d in $(find -type d)
     do
         if [ -f "${d}/Makefile" ]; then
-            echo "Executing make clean in $d"
             cd $d
             $MAKE_THREADED clean 1>/dev/null 2>&1
             cd - 1>/dev/null
