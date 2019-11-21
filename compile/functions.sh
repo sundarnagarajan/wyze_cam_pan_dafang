@@ -63,7 +63,6 @@ function restore_config() {
     local KTOP_DIR=$1
     if [ -f "${BAK_DIR}/.config.keep" ]; then
         \cp -f "${BAK_DIR}/.config.keep" "${KTOP_DIR}/.config"
-        \rm -f "${BAK_DIR}/.config.keep"
     else
         \cp -f ${WYZECAM_KCONFIG_DIR}/.config ${KTOP_DIR}/
     fi
