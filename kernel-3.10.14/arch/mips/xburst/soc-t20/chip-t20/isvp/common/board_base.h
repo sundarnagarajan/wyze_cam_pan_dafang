@@ -9,6 +9,9 @@
 #ifdef CONFIG_KEYBOARD_GPIO
 extern struct platform_device jz_button_device;
 #endif
+#if defined(CONFIG_LEDS_GPIO) || defined(CONFIG_LEDS_GPIO_MODULE)
+extern struct platform_device jz_led_device;
+#endif
 #ifdef CONFIG_INV_MPU_IIO
 extern struct mpu_platform_data mpu9250_platform_data;
 #endif

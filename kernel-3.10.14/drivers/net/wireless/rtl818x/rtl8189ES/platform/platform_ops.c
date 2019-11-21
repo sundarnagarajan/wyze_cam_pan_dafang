@@ -20,8 +20,13 @@
 #include <linux/time.h>
 #include <linux/delay.h>
 #ifndef CONFIG_PLATFORM_OPS
-extern void sdio_reinit(void);
-extern void extern_wifi_set_enable(int is_on);
+//extern void sdio_reinit(void);
+//extern void extern_wifi_set_enable(int is_on);
+extern int bcm_wlan_power_on(int flag);
+extern int bcm_manual_detect(int on);
+#define RESET 0
+#define NORMAL 1
+
 /*
  * Return:
  *	0:	power on successfully
@@ -32,11 +37,13 @@ int platform_wifi_power_on(void)
 	int ret = 0;
 
 	printk("######%s: \n",__func__);
-	extern_wifi_set_enable(0);
+	/*extern_wifi_set_enable(0);
 	msleep(500);
-	extern_wifi_set_enable(1);
+	extern_wifi_set_enable(1);*/
+	bcm_manual_detect(1);
+	bcm_wlan_power_on(NORMAL);
 	msleep(500);
-	sdio_reinit();
+	//sdio_reinit();
 	return ret;
 }
 

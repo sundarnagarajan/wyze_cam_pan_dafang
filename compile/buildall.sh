@@ -6,7 +6,7 @@ else
 fi
 PROG_DIR=${PROG_DIR:-$(dirname ${PROG_PATH})}
 PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
-source ${PROG_DIR}/defs/sh || exit 1
+source ${PROG_DIR}/defs.sh || exit 1
 
 SECONDS=0
 
