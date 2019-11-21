@@ -12,7 +12,7 @@ SECONDS=0
 
 cd ${KERNEL_DIR}
 $MAKE_THREADED clean
-\cp -f ${DAFANG_DIR}/.config .
+\cp -f ${DAFANG_DIR}/wyze_cam_pan_kernel_config/.config .
 ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 
 cd ${DRIVERS_DIR}
