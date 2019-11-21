@@ -10,9 +10,11 @@ source ${PROG_DIR}/defs.sh || exit 1
 
 SECONDS=0
 
+if [ ! -f ${KERNEL_DIR}/.config ]; then
+    \cp -f ${WYZECAM_KCONFIG_DIR}.config ${KERNEL_DIR}/
+fi
 cd ${KERNEL_DIR}
 $MAKE_THREADED clean
-\cp -f ${DAFANG_DIR}/wyze_cam_pan_kernel_config/.config .
 ( $MAKE_THREADED oldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
 
 cd ${DRIVERS_DIR}
@@ -33,7 +35,7 @@ do
     cd - 1>/dev/null
 done
 
-# Now assemble all built modules and generate modules.dep
+# Assemble all built modules and generate modules.dep
 # Note: depmod ASSUMES kernel version == running (HOST) kernel version
 rm -rf ${DAFANG_NEW_DIR}
 
