@@ -78,7 +78,7 @@ function patch_kernel() {
     cd ${KERNEL_DIR}
     for f in $(ls -1 ${KERNEL_DIR}/../patches/*.patch 2>/dev/null)
     do
-        patch --forward -r - -p1 < $f 2>/dev/null || exit 1
+        patch --forward -r - -p1 < $f 1>/dev/null 2>&1 || exit 1
     done
 }
 
