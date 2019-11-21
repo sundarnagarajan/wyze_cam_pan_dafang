@@ -103,8 +103,8 @@ function clean_extract_kernel() {
         rm -rf $KTOP_DIR
     fi
     tar xf "$KERNEL_SRC_TAR_FILENAME"
-    restore_config "$KTOP_DIR"
     patch_kernel
+    restore_config "$KTOP_DIR"
 }
 
 function clean_kernel() {
