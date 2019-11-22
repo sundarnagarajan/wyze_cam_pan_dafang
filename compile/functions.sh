@@ -176,7 +176,7 @@ function set_compatability() {
         return
     fi
     cp "${1}/${2}" "${1}/${3}"
-    echo "${2} -> ${3}"
+    echo "    ${2} -> ${3}"
 }
 
 function run_depmod() {
