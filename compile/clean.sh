@@ -10,7 +10,7 @@ source ${PROG_DIR}/functions.sh || exit 1
 
 SECONDS=0
 echo "Extracting kernel from source tar file"
-clean_extract_kernel 2>&1 | show_dots_per_file
+clean_extract_kernel 2>&1 | show_1_line
 echo "Cleaning drivers"
 clean_drivers
 echo ""

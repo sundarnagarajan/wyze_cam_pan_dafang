@@ -44,7 +44,7 @@ if [ -z "$__DEFS_PRINTED__" ]; then
     ls -l $CC
 fi
 
-function show_dots_per_file() {
+function show_1_line() {
     tee -a $LOG_FILE | while read -r a;
     do
         echo -en "\r\033[K"
