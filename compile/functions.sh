@@ -23,7 +23,7 @@ BUILT_MODULES_DIR=${DAFANG_NEW_DIR}/modules
 BUILT_KERNEL_DIR=${DAFANG_NEW_DIR}/kernel
 BUILT_KERNEL_FILENAME=${KERNEL_DIR}/arch/mips/boot/uImage.lzma
 NEW_KERNEL_FILENAME=kernel-t20.bin
-LOG_FILE=${DAFANGID_R}/compile.log
+LOG_FILE=${DAFANG_DIR}/compile.log
 
 export ARCH=mips
 export CROSS_COMPILE=${DAFANG_TOOLCHAIN_DIR}/bin/mips-linux-gnu-
