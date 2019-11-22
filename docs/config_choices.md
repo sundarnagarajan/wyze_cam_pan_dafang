@@ -1,6 +1,6 @@
-Differences between kernel_config/upstream/openfang/.config and kernel_config/camera/wyze_cam_pan/.config
+## Differences between kernel_config/upstream/openfang/.config and kernel_config/camera/wyze_cam_pan/.config
+### Only in kernel_config/upstream/openfang/.config
 ```
-Only in kernel_config/upstream/openfang/.config
     CONFIG_PPP=m
     CONFIG_PPP_BSDCOMP=m
     CONFIG_PPP_DEFLATE=m
@@ -61,7 +61,9 @@ Only in kernel_config/upstream/openfang/.config
     CONFIG_SUNRPC_BACKCHANNEL=y
     CONFIG_SUNRPC_SWAP=y
     CONFIG_OID_REGISTRY=m
-Only in kernel_config/camera/wyze_cam_pan/.config
+```
+### Only in kernel_config/camera/wyze_cam_pan/.config
+```
     CONFIG_NETFILTER=y
     CONFIG_NETFILTER_ADVANCED=y
     CONFIG_NETFILTER_XTABLES=m
