@@ -184,6 +184,14 @@ function copy_built_files() {
     # Copy kernel
     mkdir -p ${BUILT_KERNEL_DIR}
     cp ${BUILT_KERNEL_FILENAME} ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
-    mkimage -l ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
+
+    echo ""
+    echo "Kernel under new/kernel"
+    mkimage -l ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME} | sed -e 's/^/    /'
+    echo ""
+    echo "Modules under new/modules"
+    cd ${BUILT_MODULES_DIR}
+    ls -1 *.ko 2>/dev/null | sed -e 's/^/    /'
+    cd - 1>/dev/null
 }
 
