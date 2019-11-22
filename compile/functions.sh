@@ -186,7 +186,7 @@ function copy_built_files() {
     cp ${BUILT_KERNEL_FILENAME} ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME}
 
     echo ""
-    echo "Kernel under new/kernel"
+    echo "New kernel: new/kernel/${NEW_KERNEL_FILENAME}"
     mkimage -l ${BUILT_KERNEL_DIR}/${NEW_KERNEL_FILENAME} | sed -e 's/^/    /'
     echo ""
     echo "Modules under new/modules"
