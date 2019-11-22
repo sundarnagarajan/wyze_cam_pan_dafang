@@ -28,6 +28,9 @@ static struct jz_platform_device platform_devices_array[] __initdata = {
 #ifdef CONFIG_KEYBOARD_GPIO
 	DEF_DEVICE(&jz_button_device, 0, 0),
 #endif
+#if defined(CONFIG_LEDS_GPIO) || defined(CONFIG_LEDS_GPIO_MODULE)
+	DEF_DEVICE(&jz_led_device, 0, 0),
+#endif
 #ifdef CONFIG_I2C_GPIO
 #ifdef CONFIG_SOFT_I2C0_GPIO_V12_JZ
 	DEF_DEVICE(&i2c0_gpio_device, 0, 0),
