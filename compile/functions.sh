@@ -29,7 +29,7 @@ export ARCH=mips
 export CROSS_COMPILE=${DAFANG_TOOLCHAIN_DIR}/bin/mips-linux-gnu-
 export CC=${CROSS_COMPILE}gcc
 export KSRC=$KERNEL_DIR
-MAKE_THREADED="make -w -j$(nproc)"
+MAKE_THREADED="make -w CFLAGS+=-w -j$(nproc)"
 
 mkdir -p ${BAK_DIR}
 
@@ -122,8 +122,8 @@ function clean_extract_kernel() {
 function clean_kernel() {
     cd ${KERNEL_DIR}
     backup_config "$KERNEL_DIR"
-    $MAKE_THREADED distclean
-    $MAKE_THREADED mrproper
+    $MAKE_THREADED distclean 2>&1
+    $MAKE_THREADED mrproper 2>&1
     restore_config "$KERNEL_DIR"
     patch_kernel
 }
