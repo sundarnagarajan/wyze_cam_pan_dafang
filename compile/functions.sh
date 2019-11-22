@@ -131,7 +131,7 @@ function clean_kernel() {
 function build_kernel() {
     ln -sf ${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME) ${KERNEL_DIR}
     cd ${KERNEL_DIR}
-    ( $MAKE_THREADED silentoldconfig && $MAKE_THREADED uImage && $MAKE_THREADED modules && $MAKE_THREADED ) || exit 1
+    ( $MAKE_THREADED silentoldconfig 2>&1 && $MAKE_THREADED uImage 2>&1 && $MAKE_THREADED modules 2>&1 && $MAKE_THREADED 2>&1 ) || exit 1
 }
 
 function clean_drivers() {
@@ -152,7 +152,7 @@ function build_drivers() {
     for d in audio/alsa isp/tx-isp misc/sample_motor misc/sensor_info sensors/jxf22 sensors/jxh62;
     do
         cd $d
-        $MAKE_THREADED
+        $MAKE_THREADED 2>&1
         cd - 1>/dev/null
     done
 }
