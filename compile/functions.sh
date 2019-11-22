@@ -195,3 +195,31 @@ function copy_built_files() {
     cd - 1>/dev/null
 }
 
+function buildall() {
+    SECONDS=0
+    rm -f $LOG_FILE
+
+    echo "Cleaning kernel"
+    clean_kernel 2>&1 | show_1_line
+    echo "Cleaning drivers"
+    clean_drivers
+    patch_kernel 2>&1 | show_1_line
+    echo "Building kernel"
+    build_kernel 2>&1 | show_1_line
+    echo "Building drivers"
+    build_drivers 2>&1 | show_1_line
+    run_depmod
+    copy_built_files
+    echo ""
+    echo "Time taken in seconds: $SECONDS"
+}
+
+function clean() {
+    SECONDS=0
+    echo "Extracting kernel from source tar file"
+    clean_extract_kernel 2>&1 | show_1_line
+    echo "Cleaning drivers"
+    clean_drivers
+    echo ""
+    echo "Time taken in seconds: $SECONDS"
+}
