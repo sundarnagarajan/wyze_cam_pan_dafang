@@ -112,10 +112,12 @@ function clean_extract_kernel() {
     local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
     if [ -d "$KTOP_DIR" ]; then
         backup_config "$KTOP_DIR"
-        rm -rfv $KTOP_DIR
+        echo "Removing existing kernel dir"
+        rm -rfv $KTOP_DIR 2>& | show_1_line
     fi
-    tar xfv "$KERNEL_SRC_TAR_FILENAME"
-    patch_kernel
+    echo "Extracting kernel from source tar file"
+    tar xfv "$KERNEL_SRC_TAR_FILENAME" 2>& | show_1_line
+    patch_kernel 2>& | show_1_line
     restore_config "$KTOP_DIR"
 }
 
@@ -136,7 +138,7 @@ function build_kernel() {
 
 function clean_drivers() {
     cd ${DRIVERS_DIR}
-    find . -name '*.ko' -exec rm -fv {} \;
+    find . -name '*.ko' -exec rm -fv {} \; 2>&1 | show_1_line
     for d in $(find -type d)
     do
         if [ -f "${d}/Makefile" ]; then
@@ -144,7 +146,7 @@ function clean_drivers() {
             $MAKE_THREADED clean
             cd - 1>/dev/null
         fi
-    done
+    done 2>&1 | show_1_line
 }
 
 function build_drivers() {
@@ -216,8 +218,7 @@ function buildall() {
 
 function clean() {
     SECONDS=0
-    echo "Extracting kernel from source tar file"
-    clean_extract_kernel 2>&1 | show_1_line
+    clean_extract_kernel
     echo "Cleaning drivers"
     clean_drivers
     echo ""
