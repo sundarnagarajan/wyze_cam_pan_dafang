@@ -11,5 +11,5 @@ source ${PROG_DIR}/functions.sh || exit 1
 buildall
 if [ $? -ne 0 ]; then
     echo "An error occurred"
-    echo "See $LOG_FILE" for build output"
+    echo "See $LOG_FILE for build output"
 fi
