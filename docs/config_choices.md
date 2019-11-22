@@ -158,3 +158,8 @@
     CONFIG_IP_NF_FILTER=m
     CONFIG_IP_NF_TARGET_REJECT=m
 ```
+### Other things removed (automatic ?)
+```
+    CONFIG_JZ_INTERNAL_CODEC_V12=y
+    CONFIG_T10_INTERNAL_CODEC=y
+```
