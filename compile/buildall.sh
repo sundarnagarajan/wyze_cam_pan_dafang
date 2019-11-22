@@ -9,7 +9,10 @@ PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
 source ${PROG_DIR}/functions.sh || exit 1
 
 buildall
-if [ $? -ne 0 ]; then
+ret=$?
+if [ $ret -ne 0 ]; then
     echo "An error occurred"
     echo "See $LOG_FILE for build output"
+    exit $ret
 fi
+rm -f "$LOG_FILE"
