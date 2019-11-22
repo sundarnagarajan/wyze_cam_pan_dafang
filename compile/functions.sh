@@ -27,7 +27,7 @@ LOG_FILE=${DAFANG_DIR}/compile.log
 
 export ARCH=mips
 export CROSS_COMPILE=${DAFANG_TOOLCHAIN_DIR}/bin/mips-linux-gnu-
-export CC=${CROSS_COMPILE}gcc
+export CC="${CROSS_COMPILE}gcc -w"
 export KSRC=$KERNEL_DIR
 MAKE_THREADED="make -w CFLAGS+=-w -j$(nproc)"
 
