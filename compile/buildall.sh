@@ -18,6 +18,7 @@ clean_drivers
 patch_kernel 2>&1 | show_dots_per_file
 echo "Building kernel"
 build_kernel 2>&1 | show_dots_per_file
+echo "Building drivers"
 build_drivers 2>&1 | show_dots_per_file
 run_depmod
 copy_built_files
