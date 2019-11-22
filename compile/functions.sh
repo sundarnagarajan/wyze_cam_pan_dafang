@@ -48,7 +48,7 @@ function show_dots_per_file() {
     tee -a $LOG_FILE | while read -r a;
     do
         echo -en "\r\033[K"
-        echo -n "$a"
+        echo -n $a
     done
     echo -en "\r\033[K"
 }
