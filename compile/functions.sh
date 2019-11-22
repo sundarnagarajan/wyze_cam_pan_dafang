@@ -166,7 +166,8 @@ function run_depmod() {
 
     mkdir -p ${DEPMOD_MODULES_DIR}
 
-    find ${KERNEL_DIR} -name '*.ko' -exec cp {} ${DEPMOD_MODULES_DIR}/ \;
+    local KTOP_DIR=$(readlink -e ${KERNEL_DIR})
+    find ${KTOP_DIR} -name '*.ko' -exec cp {} ${DEPMOD_MODULES_DIR}/ \;
     find ${DRIVERS_DIR} -name '*.ko' -exec cp {} ${DEPMOD_MODULES_DIR}/ \;
     for f in modules.builtin modules.order
     do
