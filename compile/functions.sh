@@ -48,7 +48,7 @@ function show_dots_per_file() {
     tee -a $LOG_FILE | while read -r a;
     do
         echo -en '\r'
-        echo -n "$r"
+        echo -n "$a"
     done
     echo "done"
 }
