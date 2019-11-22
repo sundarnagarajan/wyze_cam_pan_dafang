@@ -45,11 +45,11 @@ if [ -z "$__DEFS_PRINTED__" ]; then
 fi
 
 function show_dots_per_file() {
-    echo -en "\033s"
+    echo -en "\0337"
     tee -a $LOG_FILE | while read -r a;
     do
-        echo -en "\033u"
-        echo -en "\r\033[0J"
+        echo -en "\0338"
+        echo -en "\r\033[J"
         echo -n "$a"
     done
     echo "done"
