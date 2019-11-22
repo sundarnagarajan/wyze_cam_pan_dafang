@@ -9,3 +9,7 @@ PROG_NAME=${PROG_NAME:-$(basename ${PROG_PATH})}
 source ${PROG_DIR}/functions.sh || exit 1
 
 clean
+if [ $? -ne 0 ]; then
+    echo "An error occurred"
+    echo "See $LOG_FILE" for  output"
+fi
