@@ -51,7 +51,6 @@ function show_dots_per_file() {
         echo -en "$a"
     done
     echo -en "\r\033[K"
-    echo "done"
 }
 
 function tar_top_dir() {
