@@ -87,6 +87,10 @@
     CONFIG_T10_INTERNAL_CODEC=y
 ```
 ### Added iptables-related modules
+**```
+    CONFIG_NETFILTER
+    CONFIG_NETFILTER_XTABLES
+```**
 ```
     CONFIG_NETFILTER=y
     CONFIG_NETFILTER_ADVANCED=y
