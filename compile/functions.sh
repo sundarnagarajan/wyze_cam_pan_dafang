@@ -175,7 +175,8 @@ function set_compatability() {
     if [ -e "${1}/${3}" ]; then
         return
     fi
-    cp -v "${1}/${2}" "${1}/${3}"
+    cp "${1}/${2}" "${1}/${3}"
+    echo "${2} -> ${3}"
 }
 
 function run_depmod() {
