@@ -112,9 +112,9 @@ function clean_extract_kernel() {
     local KTOP_DIR=${DAFANG_DIR}/$(tar_top_dir $KERNEL_SRC_TAR_FILENAME)
     if [ -d "$KTOP_DIR" ]; then
         backup_config "$KTOP_DIR"
-        rm -rf $KTOP_DIR
+        rm -rfv $KTOP_DIR
     fi
-    tar xf "$KERNEL_SRC_TAR_FILENAME"
+    tar xfv "$KERNEL_SRC_TAR_FILENAME"
     patch_kernel
     restore_config "$KTOP_DIR"
 }
@@ -136,12 +136,12 @@ function build_kernel() {
 
 function clean_drivers() {
     cd ${DRIVERS_DIR}
-    find . -name '*.ko' -exec rm -f {} \;
+    find . -name '*.ko' -exec rm -fv {} \;
     for d in $(find -type d)
     do
         if [ -f "${d}/Makefile" ]; then
             cd $d
-            $MAKE_THREADED clean 1>/dev/null 2>&1
+            $MAKE_THREADED clean
             cd - 1>/dev/null
         fi
     done
