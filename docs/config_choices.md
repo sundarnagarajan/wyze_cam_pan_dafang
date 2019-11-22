@@ -74,6 +74,7 @@
 ```
 ## Categories of changes
 ### Removed PPP-related stuff
+**```CONFIG_PPP```**
 ```
     CONFIG_PPP=m
     CONFIG_PPP_BSDCOMP=m
@@ -88,6 +89,7 @@
     CONFIG_PPP_SYNC_TTY=m
 ```
 ### Removed USB Ethernet related stuff
+**```CONFIG_USB_USBNET```**
 ```
     CONFIG_USB_USBNET=m
     CONFIG_USB_NET_AX8817X=m
@@ -105,6 +107,7 @@
     CONFIG_RT2X00_LIB_LEDS=y
 ```
 ### Removed OSS Audio related stuff
+**```CONFIG_SOUND_OSS_CORE```**
 ```
     CONFIG_SOUND_OSS_CORE=y
     CONFIG_SOUND_OSS_CORE_PRECLAIM=y
@@ -113,6 +116,7 @@
     CONFIG_SOUND_JZ_I2S_V12=y
 ```
 ### Removed USB_SERIAL related stuff
+**```CONFIG_USB_SERIAL```**
 ```
     CONFIG_USB_SERIAL=m
     CONFIG_USB_SERIAL_GENERIC=y
@@ -121,6 +125,7 @@
     CONFIG_SLHC=m
 ```
 ### Removed exfat-related stuff
+**```CONFIG_EXFAT_FS```**
 ```
     CONFIG_EXFAT_FS=y
     CONFIG_EXFAT_DISCARD=y
@@ -128,6 +133,7 @@
     CONFIG_EXFAT_DEFAULT_IOCHARSET="utf8"
 ```
 ### Removed NFS-related stuff
+**```CONFIG_NFS_FS```**
 ```
     CONFIG_NFS_FS=m
     CONFIG_NFS_V2=m
