@@ -23,6 +23,7 @@ BUILT_MODULES_DIR=${DAFANG_NEW_DIR}/modules
 BUILT_KERNEL_DIR=${DAFANG_NEW_DIR}/kernel
 BUILT_KERNEL_FILENAME=${KERNEL_DIR}/arch/mips/boot/uImage.lzma
 NEW_KERNEL_FILENAME=kernel-t20.bin
+LOG_FILE=${DAFANGID_R}/compile.log
 
 export ARCH=mips
 export CROSS_COMPILE=${DAFANG_TOOLCHAIN_DIR}/bin/mips-linux-gnu-
@@ -44,7 +45,7 @@ if [ -z "$__DEFS_PRINTED__" ]; then
 fi
 
 function show_dots_per_file() {
-    while read a;
+    tee -a $LOG_FILE | while read a;
     do
         echo -n "."
     done
@@ -158,6 +159,7 @@ function build_drivers() {
 function run_depmod() {
     # Assemble all built modules and generate modules.dep
     # Note: depmod ASSUMES kernel version == running (HOST) kernel version
+    echo "Running depmod"
     rm -rf ${DAFANG_NEW_DIR}
 
     mkdir -p ${DEPMOD_MODULES_DIR}
@@ -173,8 +175,9 @@ function run_depmod() {
 }
 
 function copy_built_files() {
+    echo "Copying files"
     mkdir -p ${BUILT_MODULES_DIR}
-    cp -v ${DEPMOD_MODULES_DIR}/* ${BUILT_MODULES_DIR}/
+    cp ${DEPMOD_MODULES_DIR}/* ${BUILT_MODULES_DIR}/
     rm -rf ${DEPMOD_DIR}
 
     # Copy kernel
