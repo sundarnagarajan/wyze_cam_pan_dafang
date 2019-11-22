@@ -27,9 +27,9 @@ LOG_FILE=${DAFANG_DIR}/compile.log
 
 export ARCH=mips
 export CROSS_COMPILE=${DAFANG_TOOLCHAIN_DIR}/bin/mips-linux-gnu-
-export CC="${CROSS_COMPILE}gcc -w"
+export CC=${CROSS_COMPILE}gcc
 export KSRC=$KERNEL_DIR
-MAKE_THREADED="make -j$(nproc)"
+MAKE_THREADED="make -w -j$(nproc)"
 
 mkdir -p ${BAK_DIR}
 
