@@ -47,7 +47,7 @@ fi
 function show_dots_per_file() {
     tee -a $LOG_FILE | while read -r a;
     do
-        echo -en '\r'
+        echo -en "\r\033[0K"
         echo -n "$a"
     done
     echo "done"
