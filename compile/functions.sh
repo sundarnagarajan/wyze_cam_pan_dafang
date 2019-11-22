@@ -123,6 +123,7 @@ function clean_kernel() {
     $MAKE_THREADED distclean
     $MAKE_THREADED mrproper
     restore_config "$KERNEL_DIR"
+    patch_kernel
 }
 
 function build_kernel() {
