@@ -158,6 +158,25 @@ function build_drivers() {
     done
 }
 
+function set_compatability() {
+    # $1: dir path - where modules are
+    # $2: Existing module filename - WITHOUT path
+    # $3: Copy module filename - WITHOUT path
+    # If dir path or existing module name does not exist, does nothing
+    # If copy module filename already exists, does nothing
+    
+    if [ ! -d "$1" ]; then
+        return
+    fi
+    if [ ! -f "${1}/${2}" ]; then
+        return
+    fi
+    if [ -e "${1}/${3}" ]; then
+        return
+    fi
+    cp -v "${1}/${2}" "${1}/${3}"
+}
+
 function run_depmod() {
     # Assemble all built modules and generate modules.dep
     # Note: depmod ASSUMES kernel version == running (HOST) kernel version
@@ -173,6 +192,13 @@ function run_depmod() {
     do
         cp ${KERNEL_DIR}/$f ${DEPMOD_MODULES_DIR}/
     done
+
+    # Make copies of modules with different module filenames to stay
+    # compatible with dafang rootfs /etc/init.d/rcS as far as possible
+    cd ${DEPMOD_MODULES_DIR}
+    set_compatability ${DEPMOD_MODULES_DIR} 8189es.ko rtl8189es.ko
+    set_compatability ${DEPMOD_MODULES_DIR}  tx-isp.ko tx-isp-t20.ko
+    cd - 1>/dev/null
 
     depmod -b ${DAFANG_NEW_DIR}/depmod -a
 }
