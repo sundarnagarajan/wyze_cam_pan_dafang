@@ -113,11 +113,11 @@ function clean_extract_kernel() {
     if [ -d "$KTOP_DIR" ]; then
         backup_config "$KTOP_DIR"
         echo "Removing existing kernel dir"
-        rm -rfv $KTOP_DIR 2>& | show_1_line
+        rm -rfv $KTOP_DIR 2>&1 | show_1_line
     fi
     echo "Extracting kernel from source tar file"
-    tar xfv "$KERNEL_SRC_TAR_FILENAME" 2>& | show_1_line
-    patch_kernel 2>& | show_1_line
+    tar xfv "$KERNEL_SRC_TAR_FILENAME" 2>&1 | show_1_line
+    patch_kernel 2>&1 | show_1_line
     restore_config "$KTOP_DIR"
 }
 
