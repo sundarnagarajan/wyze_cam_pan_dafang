@@ -173,6 +173,7 @@ function run_depmod() {
     do
         cp ${KERNEL_DIR}/$f ${DEPMOD_MODULES_DIR}/
     done
+    find ${DEPMOD_MODULES_DIR} -name '*.ko'
 
     depmod -b ${DAFANG_NEW_DIR}/depmod -a
 }
