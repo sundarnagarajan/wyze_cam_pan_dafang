@@ -221,6 +221,6 @@ function clean() {
     clean_extract_kernel
     echo "Cleaning drivers"
     clean_drivers
-    echo ""
     echo "Time taken in seconds: $SECONDS"
+    echo ""
 }
