@@ -50,6 +50,7 @@ function show_dots_per_file() {
         echo -en "\r\033[K"
         echo -en "$a"
     done
+    echo -en "\r\033[K"
     echo "done"
 }
 
