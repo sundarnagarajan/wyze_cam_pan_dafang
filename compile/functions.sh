@@ -45,9 +45,10 @@ if [ -z "$__DEFS_PRINTED__" ]; then
 fi
 
 function show_dots_per_file() {
-    tee -a $LOG_FILE | while read a;
+    tee -a $LOG_FILE | while read -r a;
     do
-        echo -n "."
+        echo -en '\r'
+        echo -n "$r"
     done
     echo "done"
 }
