@@ -118,6 +118,7 @@
     CONFIG_USB_SERIAL_GENERIC=y
     CONFIG_USB_SERIAL_WWAN=m
     CONFIG_USB_SERIAL_OPTION=m
+    CONFIG_SLHC=m
 ```
 ### Removed exfat-related stuff
 ```
