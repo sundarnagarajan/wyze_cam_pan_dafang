@@ -179,6 +179,7 @@ function run_depmod() {
 
 function copy_built_files() {
     echo "Copying files"
+    rm -rf ${BUILT_MODULES_DIR}
     mkdir -p ${BUILT_MODULES_DIR}
     cp ${DEPMOD_MODULES_DIR}/* ${BUILT_MODULES_DIR}/
     rm -rf ${DEPMOD_DIR}
