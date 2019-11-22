@@ -41,7 +41,6 @@ if [ -z "$__DEFS_PRINTED__" ]; then
     do
         printf '%-32s : %s\n' "$v" "${!v}"
     done
-    ls -l $CC
 fi
 
 function show_1_line() {
